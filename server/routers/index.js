@@ -10,8 +10,8 @@ router.post('/register', userController)
 // router.use()
 
 //API
-router.use('/weather', apiController)
-router.use('/music', apiController)
+router.use('/weather', apiController.getWeatherbyCoords)
+router.use('/music', apiController.playMusic)
 router.use('/news', apiController)
 
 
