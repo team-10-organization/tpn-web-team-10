@@ -1,3 +1,6 @@
+const dotenv = require('dotenv')
+dotenv.config()
+
 const express = require('express')
 const app = express()
 const port = 3000
@@ -10,10 +13,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
 
 app.use('/', router)
-
-app.get('/tes', (req, res) => {
-    res.send('helo')
-})
 
 app.listen(port, () => {
     console.log('connected on localhost:' + port);

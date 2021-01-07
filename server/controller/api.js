@@ -17,6 +17,18 @@ class Api {
         })
         .catch(next)
     }
+    static news( req, res){
+        const url = `http://newsapi.org/v2/top-headlines?country=id&category=technology&apiKey=bccbc833e207449fbb30858e2d6e0a98`
+        axios.get(url)
+        .then (response => {
+            let data = response.data.articles
+            res.status(200).json(data)
+        })
+        .catch (err => {
+            console.log(err);
+            res.send(err)
+        })
+    }
 }
 
 module.exports = Api

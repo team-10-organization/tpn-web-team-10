@@ -12,7 +12,7 @@ async function authentication (err, req, res, next) {
                 msg: 'Login First'
             })
         } else {
-            res.user = match
+            res.user = token
             next()
         }
     } catch (err) {
@@ -22,30 +22,6 @@ async function authentication (err, req, res, next) {
     }
 }
 
-async function authorize (req, res, next) {
-    console.log(req.user);
-    User.findOne({
-        where: {
-            id: req.params.id
-        }
-    })
-    .then(data => {
-        if(!data) { 
-            res.status(401).json({
-                msg: 'Your Account is not Allowed!'
-            })
-        } else {
-            next()
-        }
-    })
-    .catch(err => {
-        res.status(500).json({
-            message: err.message
-        })
-    })
-}
-
 module.exports = {
     authentication,
-    authorize
 }
