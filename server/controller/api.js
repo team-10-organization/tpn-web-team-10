@@ -9,7 +9,7 @@ class Api {
             params:{
                 lat,
                 lon,
-                appid:'bea7899e82e2e085b14050d260ac7a49'
+                appid:process.env.API_KEY_WEATHER
             }
         })
         .then(response=>{
@@ -18,7 +18,7 @@ class Api {
         .catch(next)
     }
     static news( req, res){
-        const url = `http://newsapi.org/v2/top-headlines?country=id&category=technology&apiKey=bccbc833e207449fbb30858e2d6e0a98`
+        const url = `http://newsapi.org/v2/top-headlines?country=id&category=technology&apiKey=${process.env.API_KEY_NEWS}`
         axios.get(url)
         .then (response => {
             let data = response.data.articles
@@ -28,6 +28,7 @@ class Api {
             console.log(err);
             res.send(err)
         })
+    }
     static async playMusic(req,res,next){
         try {
             let {keyword} = req.query

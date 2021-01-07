@@ -3,7 +3,7 @@ const { comparePassword } = require('../helper/bcrypt')
 const { generateToken } = require('../helper/jwt')
 
 class UserController {
-    static async register (req, res) {
+    static async register (req, res, next) {
         const { userName, email, password } = req.body
         try {
             const data = await User.create({
@@ -16,19 +16,17 @@ class UserController {
                 email,
             })
         } catch (err) {
-            res.status(401).json(err)
+            next(err)
         }
     }
-    static async login (req, res) {
+    static async login (req, res,next) {
         try {
             const { email, password } = req.body
             const user = await User.findOne({
                 where: { email }
             })
             if (!user) {
-                res.status(401).json({
-                    msg: 'Email or password not defined'
-                })
+                next({name:'NotFound', message:'Email atau Password salah'})
             } else {
                 const match = comparePassword(password, user.password)
                 if (match) {
@@ -43,13 +41,11 @@ class UserController {
                         access_token: access_token
                     })
                 } else {
-                    res.status(401).json({
-                        msg: 'Email or password not defined'
-                    })
+                    next({name:'NotFound', message:'Email atau Password salah'})
                 }
             }
         } catch (err) {
-            res.status(401).json(err)
+            next(err)
         }
     }
 }

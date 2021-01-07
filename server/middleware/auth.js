@@ -8,17 +8,13 @@ async function authentication (err, req, res, next) {
             where: { email: token.email}
         })
         if (!match) {
-            res.status(401).json({
-                msg: 'Login First'
-            })
+            next({name:'Unauthorized', message:'kamu harus login dahulu'})
         } else {
             res.user = token
             next()
         }
     } catch (err) {
-        res.status(400).json({
-            msg: err.msg
-        })
+        next(err)
     }
 }
 
