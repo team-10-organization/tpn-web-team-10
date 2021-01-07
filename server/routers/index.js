@@ -13,8 +13,7 @@ router.use(authentication)
 //API
 router.get('/news', apiController.news)
 router.get('/weather', apiController.getWeatherbyCoords)
-router.get('/music', apiController)
-
+router.get('/music', apiController.playMusic)
 
 
 module.exports = router
