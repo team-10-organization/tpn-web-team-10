@@ -5,6 +5,7 @@ const userController = require('../controller/users')
 // Users login
 router.post('/login', userController)
 router.post('/register', userController)
+router.post("/googleLogin", userController.googleLogin);
 
 // authentication
 // router.use()
