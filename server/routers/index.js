@@ -6,6 +6,7 @@ const errHandler = require('../middleware/errHandler')
 
 // Users login
 router.post('/login', userController.login)
+
 router.post('/register', userController.register)
 router.post("/googleLogin", userController.googleLogin);
 

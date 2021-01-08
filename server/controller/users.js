@@ -1,6 +1,7 @@
 const { User } = require('../models/')
 const { comparePassword } = require('../helper/bcrypt')
 const { generateToken } = require('../helper/jwt')
+const { OAuth2Client }= require('google-auth-library')
 
     
 class UserController {
@@ -20,7 +21,7 @@ class UserController {
             next(err)
         }
     }
-    static async login (req, res,next) {
+    static async login (req, res, next) {
         try {
             const { email, password } = req.body
             const user = await User.findOne({
@@ -49,7 +50,8 @@ class UserController {
             next(err)
         }
     }
-  static async googleLogin(req, res) {
+
+    static async googleLogin(req, res) {
         try {
         const google_token = req.body.google_token;
         const client = new OAuth2Client(process.env.CLIENT_ID);
@@ -63,29 +65,29 @@ class UserController {
         const email = payload.email;
         const user = await User.findOne({ where: { email: payload.email } });
         if (user) {
-            const accessToken = loginToken({
+
+            const access_token = generateToken({
             id: user.id,
             email: user.email,
             });
-            res.status(200).json({accessToken});
+            res.status(200).json({access_token});
         } else {
             const userObj = { 
             email,
             password: "random",
             };
             const newUser = await User.create(userObj);
-            const accessToken = loginToken({
+            const access_token = generateToken({
             id: newUser.id,
             email: newUser.email,
             });
-            res.status(200).json({accessToken});
+            res.status(200).json({access_token});
+
         }
         } catch (err) {
             console.log(err);
         }
-        //
     }
-
 }
 
 module.exports = UserController
