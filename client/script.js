@@ -18,6 +18,8 @@ function checkAuth(){
     $('#register').hide()
     $('#login-form').hide()
     $('#register-form').hide()
+    $('#widgetWeather').show()
+    $('#player').show()
   }else{
     $('#login').hide()
     $('#logout').hide()
@@ -132,8 +134,8 @@ function onSignIn(googleUser) {
         $('#register').hide()
         $('#login-form').hide()
         $('#register-form').hide()
-
-      
+        $('#player').show()
+        
       })
       .fail((err)=>{
         $('#login').hide()
