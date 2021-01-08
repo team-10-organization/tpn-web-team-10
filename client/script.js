@@ -20,6 +20,8 @@ function checkAuth(){
     $('#register-form').hide()
     $('#widgetWeather').show()
     $('#player').show()
+    $('#footer').show()
+
   }else{
     $('#login').hide()
     $('#logout').hide()
@@ -29,6 +31,7 @@ function checkAuth(){
     $('#news-list').hide()
     $('#player').hide()
     $('#widgetWeather').hide()
+    $('#footer').hide()
   }
 }
 
@@ -135,6 +138,8 @@ function onSignIn(googleUser) {
         $('#login-form').hide()
         $('#register-form').hide()
         $('#player').show()
+        $('#widgetWeather').show()
+
         
       })
       .fail((err)=>{
