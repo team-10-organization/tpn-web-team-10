@@ -5,8 +5,9 @@ const { authentication } = require('../middleware/auth')
 const errHandler = require('../middleware/errHandler')
 
 // Users login
-router.post('/register', userController.register)
-router.post('/login', userController.login)
+router.post('/login', userController)
+router.post('/register', userController)
+router.post("/googleLogin", userController.googleLogin);
 
 // authentication
 router.use(authentication)
