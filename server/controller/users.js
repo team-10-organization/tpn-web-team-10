@@ -3,6 +3,7 @@ const { comparePassword } = require('../helper/bcrypt')
 const { generateToken } = require('../helper/jwt')
 const { OAuth2Client }= require('google-auth-library')
 
+    
 class UserController {
     static async register (req, res, next) {
         const { userName, email, password } = req.body
@@ -64,6 +65,7 @@ class UserController {
         const email = payload.email;
         const user = await User.findOne({ where: { email: payload.email } });
         if (user) {
+
             const access_token = generateToken({
             id: user.id,
             email: user.email,
@@ -80,6 +82,7 @@ class UserController {
             email: newUser.email,
             });
             res.status(200).json({access_token});
+
         }
         } catch (err) {
             console.log(err);
